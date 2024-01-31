@@ -39,6 +39,10 @@
                 return;
             }
 
+            /** @type {HTMLInputElement} */
+            const input = document.getElementById('npub');
+            input.value = npub;
+
             const list = document.getElementById('list');
 
             for (const i of [1, 2, 3, 4]) {
