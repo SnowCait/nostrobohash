@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Nostrobohash</title>
+    <style>
+        * {
+            text-align: center;
+        }
+
+        main {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+        }
+    </style>
+    <script>
+        window.addEventListener('load', () => {
+            const npub = new URLSearchParams(location.search).get('npub');
+            console.log(npub);
+            if (npub === null) {
+                return;
+            }
+
+            const list = document.getElementById('list');
+
+            for (const i of [1, 2, 3, 4]) {
+                const url = `https://robohash.org/${npub}?set=set${i}`;
+                const child = list.children.item(i);
+                if (child !== null) {
+                    /** @type {HTMLImageElement} */
+                    const img = child;
+                    img.src = url;
+                } else {
+                    const img = document.createElement('img');
+                    img.src = url;
+                    img.alt = '';
+                    list.append(img);
+                }
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <main>
+        <h1>Nostrobohash</h1>
+
+        <form>
+            <input type="text" name="npub" placeholder="npub1..." required />
+            <input type="submit" value="Show" />
+        </form>
+
+        <ul id="list"></ul>
+    </main>
+</body>
+
+</html>
