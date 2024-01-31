@@ -19,8 +19,20 @@
             object-fit: cover;
         }
     </style>
+    <script src="https://unpkg.com/nostr-tools@2.1.5/lib/nostr.bundle.js"></script>
     <script>
         window.addEventListener('load', () => {
+            document.getElementById('nip07').addEventListener('click', async () => {
+                /** @type {HTMLInputElement} */
+                const input = document.getElementById('npub');
+                const pubkey = await window.nostr.getPublicKey();
+                input.value = window.NostrTools.nip19.npubEncode(pubkey);
+
+                /** @type {HTMLFormElement} */
+                const form = document.getElementById('form');
+                form.submit();
+            });
+
             const npub = new URLSearchParams(location.search).get('npub');
             console.log(npub);
             if (npub === null) {
@@ -51,9 +63,9 @@
     <main>
         <h1>Nostrobohash</h1>
 
-        <form>
-            <input type="text" name="npub" placeholder="npub1..." required />
-            <input type="submit" value="Show" />
+        <form id="form">
+            <input type="text" name="npub" placeholder="npub1..." required id="npub" />
+            <input type="button" value="from NIP-07" id="nip07" />
         </form>
 
         <ul id="list"></ul>
